@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import {FaGoogle, FaGithub, FaUser} from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import Axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
     const [fname, setFName] = useState('')
@@ -9,20 +11,28 @@ const SignUp = () => {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
 
-
-
     const handleSubmit = async(event) =>{
         event.preventDefault()
-        const result = await Axios.post('http://localhost:3001/api/createCandidate', {
-            firstname: fname,
-            lastname: lname,
+        const result = await Axios.post('http://localhost:3001/api/auth/signup', {
+            firstName: fname,
+            lastName: lname,
             email: email,
-            password: pass
+            password: pass,
         })
-        console.log("The post action performed: ",result)
+        if(result.status == 200){
+          toast.success('Registration Successful! Now Sign in to your Account', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
+        if(result.status == 500){
+          toast.error('Cannot create account',{
+            position: toast.POSITION.BOTTOM_RIGHT
+          })
+        }
+        }
     }
 
-  return (
+return (
+  <>
 <div className="min-h-screen flex flex-col items-center justify-center mt-10">
   <div className="flex flex-col bg-white shadow-md transition-shadow  border-1 border-slate-400 px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
     <div className="font-medium self-center text-xl sm:text-2xl text-gray-800">Create your new Account </div>
@@ -121,6 +131,8 @@ const SignUp = () => {
     </div>
   </div>
 </div>
+<ToastContainer/>
+</>
   )
 }
 

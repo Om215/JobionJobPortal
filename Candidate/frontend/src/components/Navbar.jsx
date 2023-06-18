@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-// import Profile from '../assets/profile.jpg'
+import Profile from '../assets/profile.jpg'
 import {FaBars, FaSearch} from 'react-icons/fa'
 import {AiOutlineClose} from 'react-icons/ai'
 import {NavLink, Outlet} from 'react-router-dom'
@@ -13,7 +13,7 @@ export default function Navbar(){
       initial = {{y:-1000}}
       animate = {{y: 0}}
       transition={{delay: 1, duration:1.5}}
-      className="px-4 py-5 mx-0 sm:max-w-xl md:max-w-full lg:max-w-full md:px-24 lg:px-8 shadow-md">
+      className="px-4 py-4 mx-0 sm:max-w-xl md:max-w-full lg:max-w-full md:px-24 lg:px-8 shadow-md">
         <div className="relative flex items-center justify-between">
           <div className="flex items-center">
             
@@ -43,6 +43,15 @@ export default function Navbar(){
               </span>
             </a>
 
+            {/* Responsive Signin Component */}
+            <div className='lg:hidden flex flex-1 justify-end items-end flex-row'>
+              <div className='flex flex-1 items-end justify-end gap-8'>
+                <FaSearch size={20}/>
+                <img src={Profile} alt="profile" className='h-10 w-10 rounded-full'/>
+              </div>
+            </div>
+
+            {/* NAV Menu*/}
             <ul className="flex items-center hidden space-x-8 lg:flex">
               <li>
                 <NavLink
@@ -108,7 +117,10 @@ export default function Navbar(){
           {/* Navbar items for small screens */}
           <div className="lg:hidden">
             {isMenuOpen && (
-              <div
+              <motion.div
+              initial={{width: '0%'}}
+              animate={{width: '80%'}}
+              transition={{duration: 1}}
               className={`top-0 left-0 w-[80%] bg-rose-500 text-white fixed h-full z-40  ease-in-out duration-500 
                 ${isMenuOpen ? "translate-x-0 " : "translate-x-full"
               }`}
@@ -128,7 +140,7 @@ export default function Navbar(){
                 Support
               </a>
               </div>
-            </div>
+            </motion.div>
             )}
           </div>
         </div>
