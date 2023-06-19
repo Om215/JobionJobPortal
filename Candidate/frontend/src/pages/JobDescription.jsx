@@ -1,9 +1,10 @@
 import React from 'react'
-import AuthContext
 const JobDescription = () => {
 
   return (
-    <div>JobDescription</div>
+    <div>
+      JobDescription
+    </div>
   )
 }
 

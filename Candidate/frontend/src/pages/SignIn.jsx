@@ -1,8 +1,31 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {FaGoogle, FaGithub} from 'react-icons/fa'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import Axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+
 const SignIn = () => {
-  return (
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  
+  const handleSubmit = async(event) =>{
+    event.preventDefault()
+    const result = await Axios.post('http://localhost:3001/api/auth/signin',{
+      email: email,
+      password: password,
+    })
+    if(result.status == 200){
+      toast.success('Signin Successful! Redirecting to your Dashboard',{
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+
+      navigate(-1)
+    }
+    
+  }
+return (
+  <>
 <div className="min-h-screen flex flex-col items-center justify-center">
   <div className="flex flex-col bg-white shadow-md transition-shadow  border-1 border-slate-400 px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
     <div className="font-medium self-center text-xl sm:text-2xl text-gray-800">Sign in to your Account </div>
@@ -20,7 +43,7 @@ const SignIn = () => {
       </div>
     </div>
     <div className="mt-10">
-      <form action="#">
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-col mb-6">
           <label htmlFor="email" className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">E-Mail Address:</label>
           <div className="relative">
@@ -30,7 +53,7 @@ const SignIn = () => {
               </svg>
             </div>
 
-            <input id="email" type="email" name="email" className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-rose-400" placeholder="E-Mail Address" />
+            <input id="email" type="email" name="email" onChange={(e)=>setEmail(e.target.value)} className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-rose-400" placeholder="E-Mail Address" />
           </div>
         </div>
         <div className="flex flex-col mb-6">
@@ -44,7 +67,7 @@ const SignIn = () => {
               </span>
             </div>
 
-            <input id="password" type="password" name="password" className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-rose-400" placeholder="Password" />
+            <input id="password" type="password" name="password" onChange={(e)=>setPassword(e.target.value)} className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-rose-400" placeholder="Password" />
           </div>
         </div>
 
@@ -78,6 +101,8 @@ const SignIn = () => {
     </div>
   </div>
 </div>
+<ToastContainer/>
+</>
   )
 }
 
