@@ -1,28 +1,36 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {FaGoogle, FaGithub} from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { setCredentials } from '../../auth/authSlice'
 const SignIn = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  
+  const { userInfo } = useSelector((state) => state.auth);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/dashboard');
+    }
+  }, [navigate, userInfo]);
+
   const handleSubmit = async(event) =>{
     event.preventDefault()
-    const result = await Axios.post('http://localhost:3001/api/auth/signin',{
+    try{
+    const result = await Axios.post('http://localhost:3001/api/users/auth',{
       email: email,
       password: password,
     })
-    if(result.status == 200){
-      toast.success('Signin Successful! Redirecting to your Dashboard',{
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
-
-      navigate(-1)
-    }
-    
+    dispatch(setCredentials( result.data ));
+    navigate('/dashboard');
+  } catch (err) {
+    toast.error(err?.data?.message || err.error);
+  }    
   }
 return (
   <>

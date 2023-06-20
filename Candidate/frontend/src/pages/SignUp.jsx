@@ -13,7 +13,7 @@ const SignUp = () => {
 
     const handleSubmit = async(event) =>{
         event.preventDefault()
-        const result = await Axios.post('http://localhost:3001/api/auth/signup', {
+        const result = await Axios.post('http://localhost:3001/api/users', {
             firstName: fname,
             lastName: lname,
             email: email,

@@ -1,13 +1,13 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Profile from '../assets/profile.jpg'
 import {FaBars, FaSearch} from 'react-icons/fa'
 import {AiOutlineClose} from 'react-icons/ai'
 import {NavLink, Outlet} from 'react-router-dom'
-import {delay, motion} from 'framer-motion'
+import {motion} from 'framer-motion'
+
 export default function Navbar(){
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
       <motion.div 
       initial = {{y:-1000}}
@@ -92,24 +92,24 @@ export default function Navbar(){
               </li>
             </ul>
           </div>
+
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
-              <a
-                href="/"
-                aria-label="Sign in"
-                title="Sign in"
+              <NavLink to="/signup"
+                aria-label="Sign up"
+                title="Sign up"
                 className="font-medium tracking-wide transition-colors duration-200 hover:text-rose-700">
-                Sign in
-              </a>
+                Sign up
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/"
+              <NavLink
+                to="/signin"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-rose-500 hover:bg-rose-600 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up">
-                Sign up
-              </a>
+                aria-label="Sign in"
+                title="Sign in">
+                Sign in
+              </NavLink>
             </li>
           </ul>
 
