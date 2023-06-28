@@ -13,8 +13,7 @@ const Searchbar = () => {
         <form>
             <input type="text" placeholder='Search for Jobs/Internship' className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-rose-400" />
             <input type="submit" className='hidden'/>
-        </form>
-    </motion.div>
+        </form>    </motion.div>
   )
 }
 
