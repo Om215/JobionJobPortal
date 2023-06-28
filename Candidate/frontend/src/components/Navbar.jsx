@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState, useContext } from 'react';
 import Profile from '../assets/profile.jpg'
 import {FaBars, FaSearch} from 'react-icons/fa'
 import {AiOutlineClose} from 'react-icons/ai'
 import {NavLink, Outlet} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import {motion} from 'framer-motion'
+import HoverDropdown from '../components/HoverDropdown'
+import Searchbar from './Searchbar';
 
 export default function Navbar(){
+  const { userInfo } = useSelector((state) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+
   return (
+    <>
       <motion.div 
       initial = {{y:-1000}}
       animate = {{y: 0}}
@@ -42,14 +50,6 @@ export default function Navbar(){
                 Jobion
               </span>
             </a>
-
-            {/* Responsive Signin Component */}
-            <div className='lg:hidden flex flex-1 justify-end items-end flex-row'>
-              <div className='flex flex-1 items-end justify-end gap-8'>
-                <FaSearch size={20}/>
-                <img src={Profile} alt="profile" className='h-10 w-10 rounded-full'/>
-              </div>
-            </div>
 
             {/* NAV Menu*/}
             <ul className="flex items-center hidden space-x-8 lg:flex">
@@ -93,7 +93,16 @@ export default function Navbar(){
             </ul>
           </div>
 
-          <ul className="flex items-center hidden space-x-8 lg:flex">
+          <div className='flex flex-1 justify-end items-end flex-row'>
+              <div className='mr-2 p-2 hover:bg-rose-50 rounded-full'>
+                <FaSearch size={20} onClick={()=>setIsSearchOpen(!isSearchOpen)}/>
+              </div>
+          </div>
+
+          {
+            userInfo ?
+            <HoverDropdown name = {userInfo.name} profilePic = {Profile} /> :
+            <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
               <NavLink to="/signup"
                 aria-label="Sign up"
@@ -113,6 +122,8 @@ export default function Navbar(){
             </li>
           </ul>
 
+          }
+          
 
           {/* Navbar items for small screens */}
           <div className="lg:hidden">
@@ -120,7 +131,6 @@ export default function Navbar(){
               <motion.div
               initial={{width: '0%'}}
               animate={{width: '80%'}}
-              transition={{duration: 1}}
               className={`top-0 left-0 w-[80%] bg-rose-500 text-white fixed h-full z-40  ease-in-out duration-500 
                 ${isMenuOpen ? "translate-x-0 " : "translate-x-full"
               }`}
@@ -146,5 +156,7 @@ export default function Navbar(){
         </div>
         <Outlet/>
       </motion.div>
+      {isSearchOpen && <Searchbar/>}
+      </>
   )
 }

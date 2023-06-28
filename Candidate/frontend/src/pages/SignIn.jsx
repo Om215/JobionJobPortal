@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import Axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCredentials } from '../../auth/authSlice'
+import { setCredentials } from '../auth/authSlice'
 const SignIn = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()

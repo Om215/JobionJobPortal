@@ -10,12 +10,14 @@ import Dashboard from './pages/Dashboard'
 import Jobs from './pages/Jobs'
 import Support from './pages/Support'
 import Error from './pages/Error'
-import {store} from '../auth/authStore'
+import {store} from './auth/authStore'
+import Searchbar from './components/Searchbar'
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
         <Navbar/>
+        {/* <Searchbar/> */}
         <Routes>
           <Route path='/' index element={<Home/>}/>
           <Route path='/signin' element={<SignIn/>}/>
