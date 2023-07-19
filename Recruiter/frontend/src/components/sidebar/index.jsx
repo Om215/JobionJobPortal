@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
-
 import { motion } from "framer-motion";
 
 // * React icons
@@ -13,12 +12,15 @@ import { RiBuilding3Line } from "react-icons/ri";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu, MdWorkOutline } from "react-icons/md";
 import { NavLink, useLocation, useRoutes } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const Sidebar = () => {
   let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const sidebarRef = useRef();
   const { pathname } = useLocation();
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isTabletMid) {
@@ -127,13 +129,13 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/stroage"} className="link">
+              <NavLink to={"/jobs"} className="link">
                 <MdWorkOutline size={23} className="min-w-max" />
                 Jobs
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/stroage"} className="link">
+              <NavLink to={"/internships"} className="link">
                 <MdWorkOutline size={23} className="min-w-max" />
                 Internships
               </NavLink>
@@ -149,12 +151,12 @@ const Sidebar = () => {
             <div className="flex-1 text-sm z-50  max-h-48 my-auto  whitespace-pre   w-full  font-medium  ">
               <div className="flex border-y border-slate-300 p-4 items-center justify-between">
                 <div>
-                  <p>Spark</p>
-                  <small>No-cost $0/month</small>
+                  <p>{`${userInfo.firstName} ${userInfo.lastName}`}</p>
+                  <small>Tata Consultancy Services</small>
                 </div>
-                <p className="text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl">
-                  Upgrade
-                </p>
+                <button className="text-teal-500 border-teal-500 border py-1.5 px-3 text-xs bg-teal-50 rounded-xl">
+                  Log out
+                </button>
               </div>
             </div>
           )}

@@ -131,7 +131,7 @@ export default function Navbar(){
               <motion.div
               initial={{width: '0%'}}
               animate={{width: '80%'}}
-              className={`top-0 left-0 w-[80%] bg-rose-500 text-white fixed h-full z-40  ease-in-out duration-500 
+              className={`top-0 left-0 w-[80%] shadow shadow-gray-50 text-white fixed h-full z-40  ease-in-out duration-500 
                 ${isMenuOpen ? "translate-x-0 " : "translate-x-full"
               }`}
             >

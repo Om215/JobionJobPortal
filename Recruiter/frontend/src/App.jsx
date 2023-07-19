@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp'
 import { Provider } from 'react-redux'
 import {store} from './auth/authStore'
 import PrivateRoute from './components/PrivateRoute'
+import Settings from './pages/Settings'
 function App() {
 
   return (
@@ -20,10 +21,11 @@ function App() {
         <Route path="/recruitersignup" element={<SignUp/>}></Route>
         <Route path='' element={<PrivateRoute />}>
           <Route path="/candidates" element={<RootLayout><Candidates/></RootLayout>}></Route>
-          <Route path="/postedjobs" element={<RootLayout><Jobs/></RootLayout>}></Route>
-          <Route path="/postedinternships" element={<RootLayout><Candidates/></RootLayout>}></Route>
+          <Route path="/jobs" element={<RootLayout><Jobs/></RootLayout>}></Route>
+          <Route path="/internships" element={<RootLayout><Candidates/></RootLayout>}></Route>
           <Route path="/newpost" element = {<RootLayout><NewPost/></RootLayout>}></Route>
           <Route path="/recruiterdashboard" element={<RootLayout><RecruiterDashboard/></RootLayout>}></Route>
+          <Route path="/settings" element={<RootLayout><Settings/></RootLayout>}></Route>
         </Route>
       </Routes>
     </Router>

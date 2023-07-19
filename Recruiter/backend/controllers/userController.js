@@ -15,7 +15,8 @@ const authUser = asyncHandler(async (req, res) => {
 
     res.json({
       _id: user._id,
-      name: user.firstName,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
     });
   } else {
