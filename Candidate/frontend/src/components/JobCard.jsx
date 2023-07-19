@@ -1,6 +1,6 @@
 import React from 'react'
 import Profile from '../assets/Profile.jpg'
-
+import { BiCurrentLocation, BiMap, BiRupee } from 'react-icons/bi'
 const JobCard = (props) => {
   const jobData = props
   return (
@@ -21,12 +21,25 @@ const JobCard = (props) => {
       </div>
     </blockquote>
     <figcaption className="flex items-center space-x-4"><img src={Profile} alt="logo"
-        className="flex-none w-14 h-14 rounded-lg object-contain" loading="lazy" decoding="async" />
+        className="flex-none w-20 h-20 rounded-lg object-contain" loading="lazy" decoding="async" />
       <div className="flex-auto">
         <div className="text-base text-slate-900 font-semibold dark:text-slate-300"><a
             href="https://twitter.com/ryanflorence/status/1187951799442886656" tabIndex="0"><span
               className="absolute inset-0"></span>{jobData.jobTitle}</a></div>
-        <div className="mt-0.5">{jobData.salary}</div>
+        <div className="mt-0.5 flex flex-row">
+          <div className='flex flex-row border-r border-slate-400 pr-3'>
+            <BiRupee size={20} className='pt-1'/>
+            <span>{jobData.salary} </span>
+          </div>
+          <div className='flex flex-row border-r border-slate-400 pr-3'>
+            <BiMap size={20} className='pt-1'/>
+            <span>Pune </span>
+          </div>
+          <div className='flex flex-row pr-3'>
+            <BiRupee size={20} className='pt-1'/> 
+            <span> {jobData.salary} </span>
+          </div>
+        </div>
       </div>
     </figcaption>
 

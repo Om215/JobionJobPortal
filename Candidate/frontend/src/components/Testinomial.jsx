@@ -9,14 +9,15 @@ const Testinomial = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
     arrows: true,
+
     responsive: [{
-      breakpoint: 640,
+      breakpoint: 720,
       settings: {
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
       },
     },
     {
@@ -47,7 +48,7 @@ const Testinomial = () => {
       <Slider {...settings}>
         {/* Card */}
         <div
-          className="relative ml-2 mt-8 rounded-lg shadow max-w-sm p-10 bg-rose-100 text-gray-700 leading-snug flex flex-col justify-between">
+          className="md:mx-10 mt-8 rounded-lg shadow max-w-sm p-10 bg-rose-100 text-gray-700 leading-snug flex flex-col justify-between">
           <div className="-ml-4">
             <svg className="w-8 opacity-25 text-rose-500" xmlns="http://www.w3.org/2000/svg"
               shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality"
@@ -77,8 +78,8 @@ const Testinomial = () => {
         </div>
         {/* Card 2 */}
         <div
-          className="relative ml-3 mt-8 rounded-lg shadow max-w-sm p-10 bg-rose-100 text-gray-700 leading-snug flex flex-col justify-between">
-          <div className="-ml-4">
+          className="md:mx-10 mt-8 rounded-lg shadow max-w-sm p-10 bg-rose-100 text-gray-700 leading-snug flex flex-col justify-between">
+          <div className="ml-4">
             <svg className="w-8 opacity-25 text-rose-500" xmlns="http://www.w3.org/2000/svg"
               shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality"
               fillRule="evenodd" clipRule="evenodd" viewBox="0 0 640 640"
@@ -107,8 +108,8 @@ const Testinomial = () => {
         </div>
         {/* Card 3 */}
         <div
-          className="relative mx-auto mt-8 rounded-lg shadow max-w-sm p-10 bg-rose-100 text-gray-700 leading-snug flex flex-col justify-between">
-          <div className="-ml-4">
+          className="md:mx-10 mt-8 rounded-lg shadow max-w-sm p-10 bg-rose-100 text-gray-700 leading-snug flex flex-col justify-between">
+          <div className="ml-4">
             <svg className="w-8 opacity-25 text-rose-500" xmlns="http://www.w3.org/2000/svg"
               shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality"
               fillRule="evenodd" clipRule="evenodd" viewBox="0 0 640 640"

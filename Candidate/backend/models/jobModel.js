@@ -12,31 +12,23 @@ const jobSchema = mongoose.Schema({
     },
     opType:{
         type: String,
-        required: true,
-    },
-    jobType:{
-        type: String,
-        required: true,
-    },
-    jobCategory:{
-        type: String,
-        required:true,
+        required: true
     },
     salary:{
         type: String,
-        required: true,
+        required: true
     },
     vacancies: {
         type: Number,
-        required: true,
+        required: true
     },
     jobDescription:{
         type: String,
-        required: true,
+        required: true
     },
     postedBy:{
         type: String,
-        required: true,
+        required: true
     }
 },
 {

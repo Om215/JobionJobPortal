@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import userRoutes from './routes/userRoutes.js';
 import jobRoutes from './routes/jobRoutes.js'
+import candidateRoutes from './routes/candidateRoutes.js'
 import cors from 'cors'
 
 const port = process.env.PORT || 5000;
@@ -22,7 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
-app.use('/api/jobs', jobRoutes)
+app.use('/api/jobs', jobRoutes);
+app.use('/api/candidates', candidateRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
