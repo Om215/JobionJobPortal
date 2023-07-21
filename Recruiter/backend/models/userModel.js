@@ -20,6 +20,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    profileImg:{
+      type: String,
+      required: true,
+      default: ''
+    }
   },
   {
     timestamps: true,

@@ -22,6 +22,11 @@ const jobSchema = mongoose.Schema({
         type: String,
         required:true,
     },
+    skills:{
+        type: Array,
+        required: true,
+        default: [],
+    },
     salary:{
         type: String,
         required: true,
@@ -37,6 +42,11 @@ const jobSchema = mongoose.Schema({
     postedBy:{
         type: String,
         required: true,
+    },
+    applied:{
+        type: Array,
+        required:true,
+        default: []
     }
 },
 {

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import Axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
+import makeAnimated from 'react-select/animated';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useSelector } from 'react-redux';
 import { City } from 'country-state-city'
-import Axios from 'axios'
 
+import { cityData } from '../assets/cityData';
+import { skillsData } from '../assets/skillsData'
+ 
 const NewPost = () => {
+  const animatedComponents = makeAnimated();
   document.title = "Post New Job"
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -23,9 +28,10 @@ const NewPost = () => {
   const [vacancies, setVacancies] = useState(0)
   const [location, setLocation] = useState('')
   const [jd, setJd] = useState('')
-  const [dataCities, setAllCities] = useState([])
   const [jobCategory, setJobCategory] = useState('')
+  const [skills, setSkills] = useState([])
 
+  //ReactQulill CONFIG
   const tools = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
@@ -40,6 +46,28 @@ const NewPost = () => {
     'link',
   ]
 
+  //COMMON STYLE FOR REACT-SELECT COMPONENT
+  const selectStyle = {
+    style: {
+      control: (baseStyles) => ({
+        ...baseStyles,
+        padding: '0.13rem',
+        borderRadius: '5px'
+      }),
+    },
+    theme: (theme) => ({
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primary: '#f43f5e',
+        primary25: '#ffe4e6',
+        primary75: '#ffe4e6',
+        primary50: '#ffe4e6'
+      },
+    })
+  }
+
+  //HANDLING SALARY
   useEffect(() => {
     if (salaryType === 'fs') {
       setSalary(fs)
@@ -52,7 +80,11 @@ const NewPost = () => {
     console.log(salary)
   }, [salaryType, fs, salary, minrs, maxrs])
 
+  const handleMultiSelect = (e) =>{
+    setSkills(Array.isArray(e) ? e.map(x => x.value) : []);
+  }
 
+  //HANDLE FORM SUBMIT REQUEST
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
@@ -66,6 +98,7 @@ const NewPost = () => {
         jobDescription: jd,
         postedBy: userInfo._id,
         location: location,
+        skills: skills
       })
       toast.success('Posted New Job Successfully!', {
         position: toast.POSITION.BOTTOM_RIGHT
@@ -73,30 +106,11 @@ const NewPost = () => {
       console.log(result.data)
     } catch (err) {
       console.log(err)
+      toast.error('Something Went Wrong!', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
     }
   }
-
-  const CountryCode = 'IN'
-  const fetchCities = async () => {
-    const data = await City.getCitiesOfCountry(CountryCode)
-      .map(allCities => ({
-        value: allCities.name,
-        label: allCities.name
-      }))
-    setAllCities(data)
-  }
-  useEffect(() => {
-    fetchCities();
-  }, [CountryCode])
-
-  console.log(dataCities)
-
-
-
-  // const dataCities = City.getCitiesOfCountry('IN').map(allCity => ({
-  //   value: allCity.name,
-  //   label: allCity.name
-  // }))
 
   return (
     <>
@@ -115,23 +129,8 @@ const NewPost = () => {
             <Select options={[{ value: "job", label: "Job" }, { value: "internship", label: "Internship" }]}
               placeholder="Select Type"
               onChange={(e) => setOpType(e.value)}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  padding: '0.13rem',
-                  borderRadius: '5px'
-                }),
-              }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary: '#f43f5e',
-                  primary25: '#ffe4e6',
-                  primary75: '#ffe4e6',
-                  primary50: '#ffe4e6'
-                },
-              })}
+              styles={selectStyle.style}
+              theme={selectStyle.theme}
             />
           </div>
           <div className='flex flex-col flex-1'>
@@ -139,23 +138,8 @@ const NewPost = () => {
             <Select options={[{ value: "Full-time", label: "Full-time" }, { value: "Part-time", label: "Part-time" }]}
               placeholder="Select Type"
               onChange={(e) => setJobType(e.value)}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  padding: '0.13rem',
-                  borderRadius: '5px'
-                }),
-              }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary: '#f43f5e',
-                  primary25: '#ffe4e6',
-                  primary75: '#ffe4e6',
-                  primary50: '#ffe4e6'
-                },
-              })}
+              styles={selectStyle.style}
+              theme={selectStyle.theme}
             />
           </div>
 
@@ -164,23 +148,8 @@ const NewPost = () => {
             <Select options={[{ value: "In-Office", label: "In-Office" }, { value: "Remote", label: "Remote" }, { value: "Work from Home", label: "Work from Home" }, { value: "Hybrid", label: "Hybrid" }]}
               placeholder="Select Type"
               onChange={(e) => setJobCategory(e.value)}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  padding: '0.13rem',
-                  borderRadius: '5px'
-                }),
-              }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary: '#f43f5e',
-                  primary25: '#ffe4e6',
-                  primary75: '#ffe4e6',
-                  primary50: '#ffe4e6'
-                },
-              })}
+              styles={selectStyle.style}
+              theme={selectStyle.theme}
             />
           </div>
 
@@ -212,32 +181,37 @@ const NewPost = () => {
 
           <div className='flex flex-col flex-1'>
             <label className='mb-3'>Location</label>
-            <Select options={dataCities}
+            <Select options={
+              cityData.map(item => ({
+                label: item,
+                value: item
+              }))}
               placeholder="Select Location"
               onChange={(e) => setLocation(e.value)}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  padding: '0.13rem',
-                  borderRadius: '5px'
-                }),
-              }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary: '#f43f5e',
-                  primary25: '#ffe4e6',
-                  primary75: '#ffe4e6',
-                  primary50: '#ffe4e6'
-                },
-              })}
+              styles={selectStyle.style}
+              theme={selectStyle.theme}
             />
           </div>
 
           <div className='flex flex-col flex-1'>
             <label className='mb-3'>Number of Vacancies:</label>
             <input type="number" className='textbox' placeholder="Vacancy" value={vacancies} onChange={(e) => setVacancies(e.target.value)} required />
+          </div>
+
+          <div className='flex flex-col flex-1'>
+            <label className='mb-3'>Skills:</label>
+            <Select options={
+              skillsData.map(item => ({
+                label: item,
+                value: item
+              }))}
+              components={animatedComponents}
+              isMulti
+              isClearable
+              placeholder="Select Location"
+              onChange={handleMultiSelect}
+              styles={selectStyle.style}
+              theme={selectStyle.theme}            />
           </div>
           <label>Job Description:</label>
           <ReactQuill theme="snow"
@@ -249,12 +223,6 @@ const NewPost = () => {
           <div className='flex flex-1 items-end justify-end mt-4'>
             <input type='submit' value="Post" className='text-white cursor-pointer bg-rose-500 py-2 px-6 rounded-full' />
           </div>
-          <p>{jd}</p>
-          <p>{salaryType}</p>
-          <p>{fs}</p>
-          <p>{minrs}</p>
-          <p>{maxrs}</p>
-          <p>{salary}</p>
         </form>
       </div>
       <ToastContainer />

@@ -15,19 +15,7 @@ h1 {
 }
 
 .textbox{
-  @apply text-sm sm:text-base placeholder-gray-500 px-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-rose-400
-}
-
-.scroll::-webkit-scrollbar {
-  width:5px;
-}
-.scroll::-webkit-scrollbar-track {
-  -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3); 
-  border-radius:5px;
-}
-.scroll::-webkit-scrollbar-thumb {
-  border-radius:5px;
-  -webkit-box-shadow: inset 0 0 6px red; 
+  @apply text-sm sm:text-base placeholder-gray-500 px-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-2 focus:border-rose-400
 }
 
 /* TABLE */

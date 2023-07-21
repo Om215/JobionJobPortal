@@ -22,7 +22,7 @@ router.get(('/:id'),async(req,res) =>{
         const id = req.params.id
         const result = await Job.find({postedBy: id, })
         res.status(200).send(result) 
-        }catch(e){
+    }catch(e){
             res.status(500).send(e)
         }
 })
@@ -54,10 +54,13 @@ router.delete(('/:id'), async(req,res)=>{
     try{
         const id = req.params.id
         const result = await Job.findByIdAndRemove(id)
-        res.status(204).send("Deleted Successfully")
+        console.log(result)
+        res.status(204).send("Job Deleted Successfully")
     }catch(e){
         res.status(404).send(e)
     }
 })
+
+//UPDATE JOB POSTED BY RECRUITER
 
 export default router

@@ -2,7 +2,7 @@ import React from 'react'
 import Profile from '../assets/Profile.jpg'
 import { BiCurrentLocation, BiMap, BiRupee } from 'react-icons/bi'
 const JobCard = (props) => {
-  const jobData = props
+  console.log(props.jobData.jobTitle)
   return (
     <li className="text-sm leading-6 mt-3 list-none">
   <figure
@@ -25,19 +25,19 @@ const JobCard = (props) => {
       <div className="flex-auto">
         <div className="text-base text-slate-900 font-semibold dark:text-slate-300"><a
             href="https://twitter.com/ryanflorence/status/1187951799442886656" tabIndex="0"><span
-              className="absolute inset-0"></span>{jobData.jobTitle}</a></div>
+              className="absolute inset-0"></span>{props.jobData.jobTitle}</a></div>
         <div className="mt-0.5 flex flex-row">
           <div className='flex flex-row border-r border-slate-400 pr-3'>
             <BiRupee size={20} className='pt-1'/>
-            <span>{jobData.salary} </span>
+            <span>{props.jobData.salary}</span>
           </div>
           <div className='flex flex-row border-r border-slate-400 pr-3'>
             <BiMap size={20} className='pt-1'/>
-            <span>Pune </span>
+            <span>{props.jobData.location}</span>
           </div>
           <div className='flex flex-row pr-3'>
             <BiRupee size={20} className='pt-1'/> 
-            <span> {jobData.salary} </span>
+            <span> sal </span>
           </div>
         </div>
       </div>
