@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
-import { useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
+import Axios from 'axios'
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../auth/authSlice";
 
 // * React icons
-import { IoIosArrowBack } from "react-icons/io";
 import { SlSettings } from "react-icons/sl";
 import { AiOutlineAppstore, AiOutlinePlus } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
-import { HiOutlineDatabase } from "react-icons/hi";
-import { RiBuilding3Line } from "react-icons/ri";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu, MdWorkOutline } from "react-icons/md";
-import { NavLink, useLocation, useRoutes } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 
 const Sidebar = () => {
@@ -20,7 +18,20 @@ const Sidebar = () => {
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const sidebarRef = useRef();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
+
+  const logoutHandle = async () => {
+    try {
+      const result = await Axios.post("http://localhost:3001/api/users/logout")
+      dispatch(logout());
+      navigate('/')
+      console.log(result.data.message)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
     if (isTabletMid) {
@@ -36,44 +47,43 @@ const Sidebar = () => {
 
   const Nav_animation = isTabletMid
     ? {
-        open: {
-          x: 0,
-          width: "16rem",
-          transition: {
-            damping: 40,
-          },
+      open: {
+        x: 0,
+        width: "16rem",
+        transition: {
+          damping: 40,
         },
-        closed: {
-          x: -250,
-          width: 0,
-          transition: {
-            damping: 40,
-            delay: 0.15,
-          },
+      },
+      closed: {
+        x: -250,
+        width: 0,
+        transition: {
+          damping: 40,
+          delay: 0.15,
         },
-      }
+      },
+    }
     : {
-        open: {
-          width: "16rem",
-          transition: {
-            damping: 40,
-          },
+      open: {
+        width: "16rem",
+        transition: {
+          damping: 40,
         },
-        closed: {
-          width: "4rem",
-          transition: {
-            damping: 40,
-          },
+      },
+      closed: {
+        width: "4rem",
+        transition: {
+          damping: 40,
         },
-      };
+      },
+    };
 
   return (
     <div>
       <div
         onClick={() => setOpen(false)}
-        className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50 ${
-          open ? "block" : "hidden"
-        } `}
+        className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50 ${open ? "block" : "hidden"
+          } `}
       ></div>
       <motion.div
         ref={sidebarRef}
@@ -84,35 +94,35 @@ const Sidebar = () => {
             overflow-hidden md:fixed fixed h-screen "
       >
         <div className="flex items-center gap-2.5 font-medium border-b py-3 border-slate-300  mx-3">
-        <svg
-              className="w-8"
-              viewBox="0 0 24 24"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeMiterlimit="10"
-              stroke= "rgb(190,18,60)"
-              fill="none"
-            >
-                <rect id='line' x="3" y="1" width="7" height="12" />
-                <rect id='line' x="3" y="17" width="7" height="6" />
-                <rect id='line' x="14" y="1" width="7" height="6" />
-                <rect id='line' x="14" y="11" width="7" height="12" />
-              </svg>
+          <svg
+            className="w-8"
+            viewBox="0 0 24 24"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeMiterlimit="10"
+            stroke="rgb(190,18,60)"
+            fill="none"
+          >
+            <rect id='line' x="3" y="1" width="7" height="12" />
+            <rect id='line' x="3" y="17" width="7" height="6" />
+            <rect id='line' x="14" y="1" width="7" height="6" />
+            <rect id='line' x="14" y="11" width="7" height="12" />
+          </svg>
           {/* <img
             src="https://img.icons8.com/color/512/firebase.png"
             width={45}
             alt=""
           /> */}
           <div className="flex flex-col">
-          <span className="text-xl whitespace-pre">Jobion.</span>
-          <span className="text-sm whitespace-pre-line">Recruiter Panel</span>
-          </div>  
+            <span className="text-xl whitespace-pre">Jobion.</span>
+            <span className="text-sm whitespace-pre-line">Recruiter Panel</span>
+          </div>
         </div>
 
         <div className="flex flex-col  h-full">
-          <NavLink to = "/newpost"  className="flex justify-center items-center border rounded-md p-2 m-2 gap-1 font-semibold cursor-pointer hover:bg-rose-500 hover:text-white">
-          <AiOutlinePlus size={24}/>
+          <NavLink to="/newpost" className="flex justify-center items-center border rounded-md p-2 m-2 gap-1 font-semibold cursor-pointer hover:bg-rose-500 hover:text-white">
+            <AiOutlinePlus size={24} />
             <span>Post New Job</span>
           </NavLink>
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1  font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100   md:h-[68%] h-[70%]">
@@ -154,7 +164,7 @@ const Sidebar = () => {
                   <p>{`${userInfo.firstName} ${userInfo.lastName}`}</p>
                   <small>Tata Consultancy Services</small>
                 </div>
-                <button className="text-teal-500 border-teal-500 border py-1.5 px-3 text-xs bg-teal-50 rounded-xl">
+                <button onClick = {logoutHandle} className="text-teal-500 border-teal-500 border py-1.5 px-3 text-xs bg-teal-50 rounded-xl">
                   Log out
                 </button>
               </div>
@@ -168,15 +178,15 @@ const Sidebar = () => {
           animate={
             open
               ? {
-                  x: 0,
-                  y: 0,
-                  rotate: 0,
-                }
+                x: 0,
+                y: 0,
+                rotate: 0,
+              }
               : {
-                  x: -10,
-                  y: -200,
-                  rotate: 180,
-                }
+                x: -10,
+                y: -200,
+                rotate: 180,
+              }
           }
           transition={{ duration: 0 }}
           className="absolute w-fit h-fit md:block z-50 hidden right-2 bottom-3 cursor-pointer"
