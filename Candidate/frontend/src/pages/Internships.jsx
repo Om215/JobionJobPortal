@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import JobCard from '../components/JobCard'
 import Axios from 'axios'
-import {useLocation} from 'react-router-dom'
 
-const Jobs = () => {
-  const [job, setJob] = useState()
+const Internships = () => {
+    const [internship, setInternship] = useState()
+  console.log(location.pathname)
   const fetchJob = async () => {
-    const result = await Axios.get('http://localhost:3001/api/jobs/job')
-    setJob(result.data)
-    console.log(job)
+    const result = await Axios.get('http://localhost:3001/api/jobs/internship')
+    setInternship(result.data)
+    console.log(internship)
   }
 
   useEffect(() => {
@@ -18,11 +18,11 @@ const Jobs = () => {
   return (
     <>
       {
-        job && 
+        internship &&
         <div className='m-4'>
-          <div className='text-md'>{job.length} jobs found</div>
+          <div className='text-md'>{internship.length} internships found</div>
           <ul>
-            {job.map(item => (
+            {internship.map(item => (
               <div key = {item._id}>
                 <JobCard jobData={item} />
               </div>
@@ -36,4 +36,4 @@ const Jobs = () => {
   )
 }
 
-export default Jobs
+export default Internships

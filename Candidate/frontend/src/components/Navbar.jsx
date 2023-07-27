@@ -31,7 +31,7 @@ export default function Navbar(){
             </div>
 
             {/* Navbar items for large screens */}
-            <a href="/" aria-label="Company" title="Company" className="inline-flex items-center mr-8">
+            <a href="/" aria-label="Jobion" title="Jobion" className="inline-flex items-center mr-8">
               <svg
                 className="w-8"
                 viewBox="0 0 24 24"
@@ -131,7 +131,7 @@ export default function Navbar(){
               <motion.div
               initial={{width: '0%'}}
               animate={{width: '80%'}}
-              className={`top-0 left-0 w-[80%] shadow shadow-gray-50 text-white fixed h-full z-40  ease-in-out duration-500 
+              className={`top-0 left-0 w-[80%] shadow shadow-gray-50 text-white fixed h-full z-40 bg-rose-400 ease-in-out duration-500 
                 ${isMenuOpen ? "translate-x-0 " : "translate-x-full"
               }`}
             >

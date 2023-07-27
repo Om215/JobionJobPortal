@@ -39,6 +39,9 @@ const logoutHandle = async() =>{
             <button onClick = {()=>{navigate("/dashboard")}}>My Dashboard</button>
           </li>
           <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+            <button onClick = {()=>{navigate("/dashboard")}}>Settings</button>
+          </li>
+          <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
             <button onClick = {logoutHandle}>Log out</button>
           </li>
         </ul>
