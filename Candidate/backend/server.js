@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
-app.use('/api/jobs',jobRoutes)
+app.use('/api/posts',jobRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
