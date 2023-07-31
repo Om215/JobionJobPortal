@@ -11,7 +11,7 @@ import { City } from 'country-state-city'
 
 import { cityData } from '../assets/cityData';
 import { skillsData } from '../assets/skillsData'
- 
+
 const NewPost = () => {
   const animatedComponents = makeAnimated();
   document.title = "Post New Job"
@@ -30,6 +30,7 @@ const NewPost = () => {
   const [jd, setJd] = useState('')
   const [jobCategory, setJobCategory] = useState('')
   const [skills, setSkills] = useState([])
+  const [duration, setDuration] = useState(0)
 
   //ReactQulill CONFIG
   const tools = {
@@ -80,7 +81,7 @@ const NewPost = () => {
     console.log(salary)
   }, [salaryType, fs, salary, minrs, maxrs])
 
-  const handleMultiSelect = (e) =>{
+  const handleMultiSelect = (e) => {
     setSkills(Array.isArray(e) ? e.map(x => x.value) : []);
   }
 
@@ -98,7 +99,8 @@ const NewPost = () => {
         jobDescription: jd,
         postedBy: userInfo._id,
         location: location,
-        skills: skills
+        skills: skills,
+        duration: duration,
       })
       toast.success('Posted New Job Successfully!', {
         position: toast.POSITION.BOTTOM_RIGHT
@@ -133,6 +135,13 @@ const NewPost = () => {
               theme={selectStyle.theme}
             />
           </div>
+          {
+            opType == 'internship' &&
+            <div className='flex flex-col flex-1'>
+              <label className='mb-3'>Duration(In Months):</label>
+              <input type="number" className="textbox" placeholder="Duration" value={duration} onChange={(e) => setDuration(e.target.value)} required />
+            </div>
+          }
           <div className='flex flex-col flex-1'>
             <label className='mb-3'>Job Time:</label>
             <Select options={[{ value: "Full-time", label: "Full-time" }, { value: "Part-time", label: "Part-time" }]}
@@ -211,7 +220,7 @@ const NewPost = () => {
               placeholder="Select Location"
               onChange={handleMultiSelect}
               styles={selectStyle.style}
-              theme={selectStyle.theme}            />
+              theme={selectStyle.theme} />
           </div>
           <label>Job Description:</label>
           <ReactQuill theme="snow"

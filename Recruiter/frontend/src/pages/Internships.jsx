@@ -65,7 +65,7 @@ const Internships = () => {
                 <td data-label="Name">{item.jobTitle}</td>
                 <td data-label="Skills">{item.location}</td>
                 <td data-label="Salary">&#8377; {item.salary}</td>
-                <td data-label="Duration">6</td>
+                <td data-label="Duration">{item.duration}</td>
                 <td data-label="Status">Live</td>
                 <td data-label="Actions" className=''>
                   <button className='px-0.5' title="View Full Details"><AiOutlineProfile size={20} className='hover:text-rose-500' /></button>

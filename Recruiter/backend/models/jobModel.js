@@ -40,13 +40,16 @@ const jobSchema = mongoose.Schema({
         required: true,
     },
     postedBy:{
-        type: String,
+        type: mongoose.Types.ObjectId,
         required: true,
     },
     applied:{
         type: Array,
         required:true,
         default: []
+    },
+    duration:{
+        type: Number,
     }
 },
 {
